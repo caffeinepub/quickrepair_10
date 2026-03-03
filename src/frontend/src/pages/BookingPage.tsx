@@ -12,7 +12,7 @@ const SERVICES = [
   "Electrical Mechanic - ₹299",
 ];
 
-const TIMES = ["ASAP", "Within 1 Hour", "Today", "Schedule"];
+const TIMES = ["Within 30 Minutes", "Within 1 Hour"];
 
 const inputClass =
   "w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-shadow bg-white";
