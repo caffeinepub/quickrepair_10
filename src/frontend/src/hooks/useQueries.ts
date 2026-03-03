@@ -56,6 +56,34 @@ export function useSubmitInquiry() {
   });
 }
 
+export function useUpdateInquiryStatus() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.updateInquiryStatus(id, status);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["inquiries"] });
+    },
+  });
+}
+
+export function useUpdateApplicationStatus() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.updateApplicationStatus(id, status);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+    },
+  });
+}
+
 export function useSubmitApplication() {
   const { actor } = useActor();
   const queryClient = useQueryClient();

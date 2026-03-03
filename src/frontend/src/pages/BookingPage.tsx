@@ -312,49 +312,7 @@ export default function BookingPage() {
               )}
             </button>
 
-            {/* GPay badge */}
-            <div className="mt-4 flex items-center justify-center gap-2">
-              <span className="text-xs text-gray-400">Pay via</span>
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white shadow-sm"
-                title="Google Pay accepted"
-              >
-                {/* GPay coloured G logo */}
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  role="img"
-                  aria-label="Google Pay"
-                >
-                  <title>Google Pay</title>
-                  <path
-                    d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-7.5 20-21 0-1.3-.2-2.7-.5-4z"
-                    fill="#FBC02D"
-                  />
-                  <path
-                    d="M6.3 14.7l7 5.1C15.1 16 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6-6C34.6 5.1 29.6 3 24 3 16.3 3 9.7 7.9 6.3 14.7z"
-                    fill="#E53935"
-                  />
-                  <path
-                    d="M24 45c5.5 0 10.5-1.9 14.4-5.1l-6.7-5.5C29.7 35.9 27 37 24 37c-6 0-10.6-3.9-11.7-9.2l-7 5.4C8.2 41.1 15.5 45 24 45z"
-                    fill="#4CAF50"
-                  />
-                  <path
-                    d="M44.5 20H24v8.5h11.8c-.6 2.9-2.4 5.4-5 7l6.7 5.5C41.8 37.1 45 31 45 24c0-1.3-.2-2.7-.5-4z"
-                    fill="#1565C0"
-                  />
-                </svg>
-                <span className="text-xs font-bold text-gray-700 tracking-wide">
-                  GPay
-                </span>
-              </div>
-              <span className="text-xs text-gray-400">UPI accepted</span>
-            </div>
-
-            <p className="text-xs text-gray-400 text-center mt-2">
+            <p className="text-xs text-gray-400 text-center mt-4">
               No hidden charges · Cash on delivery · 30-minute service guarantee
             </p>
           </form>

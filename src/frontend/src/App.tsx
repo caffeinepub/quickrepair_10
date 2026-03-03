@@ -10,14 +10,28 @@ import {
 } from "@tanstack/react-router";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
 import BookingPage from "./pages/BookingPage";
 import HomePage from "./pages/HomePage";
 import MechanicRegisterPage from "./pages/MechanicRegisterPage";
 import ThankYouPage from "./pages/ThankYouPage";
 
-// Root layout
-const rootRoute = createRootRoute({
-  component: () => (
+// Root layout — conditionally renders Header/Footer based on route
+function RootLayout() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
+  if (isAdminRoute) {
+    return (
+      <>
+        <Outlet />
+        <Toaster />
+      </>
+    );
+  }
+
+  return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-1">
@@ -26,7 +40,11 @@ const rootRoute = createRootRoute({
       <Footer />
       <Toaster />
     </div>
-  ),
+  );
+}
+
+const rootRoute = createRootRoute({
+  component: RootLayout,
 });
 
 const indexRoute = createRoute({
@@ -56,11 +74,25 @@ const thankyouRoute = createRoute({
   component: ThankYouPage,
 });
 
+const adminLoginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin",
+  component: AdminLoginPage,
+});
+
+const adminDashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin/dashboard",
+  component: AdminDashboardPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   bookRoute,
   mechanicRoute,
   thankyouRoute,
+  adminLoginRoute,
+  adminDashboardRoute,
 ]);
 
 const router = createRouter({ routeTree });

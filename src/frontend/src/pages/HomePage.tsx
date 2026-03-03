@@ -488,7 +488,7 @@ export default function HomePage() {
             </a>
 
             <a
-              href="mailto:amitpanday96149@gmail.com"
+              href="mailto:quickrepairhelp@gmail.com"
               className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-orange-300 hover:shadow-md transition-all group"
               data-ocid="contact.email_link"
             >
@@ -502,7 +502,7 @@ export default function HomePage() {
                 Email
               </span>
               <span className="font-bold text-gray-800 group-hover:text-orange-500 transition-colors text-xs break-all">
-                amitpanday96149@gmail.com
+                quickrepairhelp@gmail.com
               </span>
             </a>
 

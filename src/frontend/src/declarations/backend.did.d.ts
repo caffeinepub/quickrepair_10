@@ -11,6 +11,8 @@ import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
 export interface ContactInquiry {
+  'id' : string,
+  'status' : string,
   'serviceType' : string,
   'name' : string,
   'description' : string,
@@ -21,6 +23,8 @@ export interface ContactInquiry {
   'phone' : string,
 }
 export interface MechanicApplication {
+  'id' : string,
+  'status' : string,
   'serviceType' : string,
   'dateOfBirth' : string,
   'name' : string,
@@ -34,16 +38,18 @@ export type Time = bigint;
 export interface _SERVICE {
   'getAllApplications' : ActorMethod<[], Array<MechanicApplication>>,
   'getAllInquiries' : ActorMethod<[], Array<ContactInquiry>>,
-  'getApplicationByName' : ActorMethod<[string], MechanicApplication>,
-  'getInquiryByName' : ActorMethod<[string], ContactInquiry>,
+  'getApplicationById' : ActorMethod<[string], MechanicApplication>,
+  'getInquiryById' : ActorMethod<[string], ContactInquiry>,
   'submitApplication' : ActorMethod<
     [string, string, string, string, string, string, string],
-    undefined
+    string
   >,
   'submitInquiry' : ActorMethod<
     [string, string, string, string, string, string, string],
-    undefined
+    string
   >,
+  'updateApplicationStatus' : ActorMethod<[string, string], undefined>,
+  'updateInquiryStatus' : ActorMethod<[string, string], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

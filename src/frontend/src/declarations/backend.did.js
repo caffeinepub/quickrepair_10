@@ -10,6 +10,8 @@ import { IDL } from '@icp-sdk/core/candid';
 
 export const Time = IDL.Int;
 export const MechanicApplication = IDL.Record({
+  'id' : IDL.Text,
+  'status' : IDL.Text,
   'serviceType' : IDL.Text,
   'dateOfBirth' : IDL.Text,
   'name' : IDL.Text,
@@ -20,6 +22,8 @@ export const MechanicApplication = IDL.Record({
   'phone' : IDL.Text,
 });
 export const ContactInquiry = IDL.Record({
+  'id' : IDL.Text,
+  'status' : IDL.Text,
   'serviceType' : IDL.Text,
   'name' : IDL.Text,
   'description' : IDL.Text,
@@ -37,22 +41,20 @@ export const idlService = IDL.Service({
       ['query'],
     ),
   'getAllInquiries' : IDL.Func([], [IDL.Vec(ContactInquiry)], ['query']),
-  'getApplicationByName' : IDL.Func(
-      [IDL.Text],
-      [MechanicApplication],
-      ['query'],
-    ),
-  'getInquiryByName' : IDL.Func([IDL.Text], [ContactInquiry], ['query']),
+  'getApplicationById' : IDL.Func([IDL.Text], [MechanicApplication], ['query']),
+  'getInquiryById' : IDL.Func([IDL.Text], [ContactInquiry], ['query']),
   'submitApplication' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
-      [],
+      [IDL.Text],
       [],
     ),
   'submitInquiry' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
-      [],
+      [IDL.Text],
       [],
     ),
+  'updateApplicationStatus' : IDL.Func([IDL.Text, IDL.Text], [], []),
+  'updateInquiryStatus' : IDL.Func([IDL.Text, IDL.Text], [], []),
 });
 
 export const idlInitArgs = [];
@@ -60,6 +62,8 @@ export const idlInitArgs = [];
 export const idlFactory = ({ IDL }) => {
   const Time = IDL.Int;
   const MechanicApplication = IDL.Record({
+    'id' : IDL.Text,
+    'status' : IDL.Text,
     'serviceType' : IDL.Text,
     'dateOfBirth' : IDL.Text,
     'name' : IDL.Text,
@@ -70,6 +74,8 @@ export const idlFactory = ({ IDL }) => {
     'phone' : IDL.Text,
   });
   const ContactInquiry = IDL.Record({
+    'id' : IDL.Text,
+    'status' : IDL.Text,
     'serviceType' : IDL.Text,
     'name' : IDL.Text,
     'description' : IDL.Text,
@@ -87,22 +93,24 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'getAllInquiries' : IDL.Func([], [IDL.Vec(ContactInquiry)], ['query']),
-    'getApplicationByName' : IDL.Func(
+    'getApplicationById' : IDL.Func(
         [IDL.Text],
         [MechanicApplication],
         ['query'],
       ),
-    'getInquiryByName' : IDL.Func([IDL.Text], [ContactInquiry], ['query']),
+    'getInquiryById' : IDL.Func([IDL.Text], [ContactInquiry], ['query']),
     'submitApplication' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
-        [],
+        [IDL.Text],
         [],
       ),
     'submitInquiry' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
-        [],
+        [IDL.Text],
         [],
       ),
+    'updateApplicationStatus' : IDL.Func([IDL.Text, IDL.Text], [], []),
+    'updateInquiryStatus' : IDL.Func([IDL.Text, IDL.Text], [], []),
   });
 };
 

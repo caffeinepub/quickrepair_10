@@ -8,6 +8,8 @@ export interface None {
 }
 export type Option<T> = Some<T> | None;
 export interface MechanicApplication {
+    id: string;
+    status: string;
     serviceType: string;
     dateOfBirth: string;
     name: string;
@@ -18,6 +20,8 @@ export interface MechanicApplication {
     phone: string;
 }
 export interface ContactInquiry {
+    id: string;
+    status: string;
     serviceType: string;
     name: string;
     description: string;
@@ -31,8 +35,10 @@ export type Time = bigint;
 export interface backendInterface {
     getAllApplications(): Promise<Array<MechanicApplication>>;
     getAllInquiries(): Promise<Array<ContactInquiry>>;
-    getApplicationByName(name: string): Promise<MechanicApplication>;
-    getInquiryByName(name: string): Promise<ContactInquiry>;
-    submitApplication(name: string, dateOfBirth: string, phone: string, serviceType: string, experience: string, address: string, motivation: string): Promise<void>;
-    submitInquiry(name: string, phone: string, email: string, serviceType: string, address: string, description: string, preferredTime: string): Promise<void>;
+    getApplicationById(id: string): Promise<MechanicApplication>;
+    getInquiryById(id: string): Promise<ContactInquiry>;
+    submitApplication(name: string, dateOfBirth: string, phone: string, serviceType: string, experience: string, address: string, motivation: string): Promise<string>;
+    submitInquiry(name: string, phone: string, email: string, serviceType: string, address: string, description: string, preferredTime: string): Promise<string>;
+    updateApplicationStatus(id: string, status: string): Promise<void>;
+    updateInquiryStatus(id: string, status: string): Promise<void>;
 }

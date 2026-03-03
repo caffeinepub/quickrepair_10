@@ -90,6 +90,8 @@ export class ExternalBlob {
     }
 }
 export interface MechanicApplication {
+    id: string;
+    status: string;
     serviceType: string;
     dateOfBirth: string;
     name: string;
@@ -100,6 +102,8 @@ export interface MechanicApplication {
     phone: string;
 }
 export interface ContactInquiry {
+    id: string;
+    status: string;
     serviceType: string;
     name: string;
     description: string;
@@ -113,10 +117,12 @@ export type Time = bigint;
 export interface backendInterface {
     getAllApplications(): Promise<Array<MechanicApplication>>;
     getAllInquiries(): Promise<Array<ContactInquiry>>;
-    getApplicationByName(name: string): Promise<MechanicApplication>;
-    getInquiryByName(name: string): Promise<ContactInquiry>;
-    submitApplication(name: string, dateOfBirth: string, phone: string, serviceType: string, experience: string, address: string, motivation: string): Promise<void>;
-    submitInquiry(name: string, phone: string, email: string, serviceType: string, address: string, description: string, preferredTime: string): Promise<void>;
+    getApplicationById(id: string): Promise<MechanicApplication>;
+    getInquiryById(id: string): Promise<ContactInquiry>;
+    submitApplication(name: string, dateOfBirth: string, phone: string, serviceType: string, experience: string, address: string, motivation: string): Promise<string>;
+    submitInquiry(name: string, phone: string, email: string, serviceType: string, address: string, description: string, preferredTime: string): Promise<string>;
+    updateApplicationStatus(id: string, status: string): Promise<void>;
+    updateInquiryStatus(id: string, status: string): Promise<void>;
 }
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
@@ -148,35 +154,35 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async getApplicationByName(arg0: string): Promise<MechanicApplication> {
+    async getApplicationById(arg0: string): Promise<MechanicApplication> {
         if (this.processError) {
             try {
-                const result = await this.actor.getApplicationByName(arg0);
+                const result = await this.actor.getApplicationById(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getApplicationByName(arg0);
+            const result = await this.actor.getApplicationById(arg0);
             return result;
         }
     }
-    async getInquiryByName(arg0: string): Promise<ContactInquiry> {
+    async getInquiryById(arg0: string): Promise<ContactInquiry> {
         if (this.processError) {
             try {
-                const result = await this.actor.getInquiryByName(arg0);
+                const result = await this.actor.getInquiryById(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getInquiryByName(arg0);
+            const result = await this.actor.getInquiryById(arg0);
             return result;
         }
     }
-    async submitApplication(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<void> {
+    async submitApplication(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<string> {
         if (this.processError) {
             try {
                 const result = await this.actor.submitApplication(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
@@ -190,7 +196,7 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async submitInquiry(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<void> {
+    async submitInquiry(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string): Promise<string> {
         if (this.processError) {
             try {
                 const result = await this.actor.submitInquiry(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
@@ -201,6 +207,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.submitInquiry(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+            return result;
+        }
+    }
+    async updateApplicationStatus(arg0: string, arg1: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateApplicationStatus(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateApplicationStatus(arg0, arg1);
+            return result;
+        }
+    }
+    async updateInquiryStatus(arg0: string, arg1: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateInquiryStatus(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateInquiryStatus(arg0, arg1);
             return result;
         }
     }
