@@ -15,9 +15,7 @@ import AdminLoginPage from "./pages/AdminLoginPage";
 import BookingPage from "./pages/BookingPage";
 import HomePage from "./pages/HomePage";
 import MechanicRegisterPage from "./pages/MechanicRegisterPage";
-import MyBookingsPage from "./pages/MyBookingsPage";
 import ThankYouPage from "./pages/ThankYouPage";
-import TrackingPage from "./pages/TrackingPage";
 
 // Root layout — conditionally renders Header/Footer based on route
 function RootLayout() {
@@ -73,26 +71,7 @@ const mechanicRoute = createRoute({
 const thankyouRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/thankyou",
-  validateSearch: (search: Record<string, unknown>) => ({
-    bookingId: (search.bookingId as string) || "",
-    internalId: (search.internalId as string) || "",
-  }),
   component: ThankYouPage,
-});
-
-const trackingRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/tracking",
-  validateSearch: (search: Record<string, unknown>) => ({
-    id: (search.id as string) || "",
-  }),
-  component: TrackingPage,
-});
-
-const myBookingsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/my-bookings",
-  component: MyBookingsPage,
 });
 
 const adminLoginRoute = createRoute({
@@ -112,8 +91,6 @@ const routeTree = rootRoute.addChildren([
   bookRoute,
   mechanicRoute,
   thankyouRoute,
-  trackingRoute,
-  myBookingsRoute,
   adminLoginRoute,
   adminDashboardRoute,
 ]);

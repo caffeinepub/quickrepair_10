@@ -1,17 +1,12 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import { BookOpen, LogIn, LogOut, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useInternetIdentity } from "../hooks/useInternetIdentity";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const router = useRouter();
-  const { identity, login, clear, isLoggingIn, isInitializing } =
-    useInternetIdentity();
-
-  const isLoggedIn = !!identity && !identity.getPrincipal().isAnonymous();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 8);
@@ -99,16 +94,6 @@ export default function Header() {
             Book Now
           </Link>
 
-          {/* My Bookings */}
-          <Link
-            to="/my-bookings"
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-gray-700 hover:text-orange-500 rounded-md transition-colors"
-            data-ocid="nav.my_bookings_link"
-          >
-            <BookOpen size={14} />
-            My Bookings
-          </Link>
-
           <Link
             to="/mechanic-register"
             className="ml-1 px-4 py-2 text-sm font-bold text-white rounded-lg cta-btn"
@@ -117,41 +102,6 @@ export default function Header() {
           >
             Join as Mechanic
           </Link>
-
-          {/* Sign In / Sign Out */}
-          {!isInitializing &&
-            (isLoggedIn ? (
-              <button
-                type="button"
-                onClick={clear}
-                className="ml-1 flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-md border transition-colors hover:bg-gray-50"
-                style={{
-                  color: "#888",
-                  borderColor: "#E0E0E0",
-                }}
-                data-ocid="nav.sign_out_button"
-                title="Sign Out"
-              >
-                <LogOut size={14} />
-                Sign Out
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={login}
-                disabled={isLoggingIn}
-                className="ml-1 flex items-center gap-1.5 px-3 py-2 text-sm font-bold rounded-md border transition-colors hover:bg-orange-50"
-                style={{
-                  color: "#ff8c42",
-                  borderColor: "#ff8c42",
-                  backgroundColor: "transparent",
-                }}
-                data-ocid="nav.sign_in_button"
-              >
-                <LogIn size={14} />
-                {isLoggingIn ? "Signing In..." : "Sign In"}
-              </button>
-            ))}
         </nav>
 
         {/* Mobile hamburger */}
@@ -207,17 +157,6 @@ export default function Header() {
               Book Now
             </Link>
 
-            {/* My Bookings mobile */}
-            <Link
-              to="/my-bookings"
-              className="flex items-center gap-2 px-3 py-3 text-sm font-semibold text-gray-700 hover:text-orange-500 hover:bg-gray-50 rounded-md transition-colors"
-              onClick={() => setMenuOpen(false)}
-              data-ocid="nav.mobile_my_bookings_link"
-            >
-              <BookOpen size={14} />
-              My Bookings
-            </Link>
-
             <Link
               to="/mechanic-register"
               className="mt-1 px-4 py-3 text-sm font-bold text-white rounded-lg text-center cta-btn block"
@@ -227,38 +166,6 @@ export default function Header() {
             >
               Join as Mechanic
             </Link>
-
-            {/* Sign In / Sign Out mobile */}
-            {!isInitializing &&
-              (isLoggedIn ? (
-                <button
-                  type="button"
-                  onClick={() => {
-                    clear();
-                    setMenuOpen(false);
-                  }}
-                  className="flex items-center gap-2 px-3 py-3 text-sm font-semibold text-gray-500 hover:bg-gray-50 rounded-md transition-colors"
-                  data-ocid="nav.mobile_sign_out_button"
-                >
-                  <LogOut size={14} />
-                  Sign Out
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    login();
-                    setMenuOpen(false);
-                  }}
-                  disabled={isLoggingIn}
-                  className="flex items-center gap-2 px-3 py-3 text-sm font-bold rounded-md transition-colors"
-                  style={{ color: "#ff8c42" }}
-                  data-ocid="nav.mobile_sign_in_button"
-                >
-                  <LogIn size={14} />
-                  {isLoggingIn ? "Signing In..." : "Sign In"}
-                </button>
-              ))}
           </nav>
         </div>
       )}
