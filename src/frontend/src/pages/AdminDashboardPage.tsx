@@ -11,7 +11,7 @@ import {
 
 type TabType = "bookings" | "mechanics";
 
-const STATUS_OPTIONS = ["Pending", "Confirmed", "Completed"];
+const STATUS_OPTIONS = ["Pending", "Confirmed", "Completed", "Cancelled"];
 
 function statusBadgeStyle(status: string): React.CSSProperties {
   switch (status) {
@@ -19,6 +19,8 @@ function statusBadgeStyle(status: string): React.CSSProperties {
       return { backgroundColor: "#dbeafe", color: "#1d4ed8" };
     case "Completed":
       return { backgroundColor: "#dcfce7", color: "#15803d" };
+    case "Cancelled":
+      return { backgroundColor: "#fee2e2", color: "#b91c1c" };
     default:
       return { backgroundColor: "#fef9c3", color: "#a16207" };
   }
@@ -214,6 +216,7 @@ function BookingsTab() {
                 >
                   {[
                     "#",
+                    "Booking Ref",
                     "Name",
                     "Phone",
                     "Email",
@@ -247,6 +250,12 @@ function BookingsTab() {
                       style={{ color: "#888", minWidth: "36px" }}
                     >
                       {idx + 1}
+                    </td>
+                    <td
+                      className="px-4 py-3 whitespace-nowrap text-xs font-mono font-semibold"
+                      style={{ color: "#ff8c42", minWidth: "80px" }}
+                    >
+                      {item.id}
                     </td>
                     <td
                       className="px-4 py-3 font-medium whitespace-nowrap"

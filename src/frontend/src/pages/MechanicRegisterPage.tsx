@@ -93,7 +93,7 @@ export default function MechanicRegisterPage() {
 
     // Play sound and redirect to thank you page
     playConfirmSound();
-    navigate({ to: "/thankyou" });
+    navigate({ to: "/thankyou", search: { bookingId: "", internalId: "" } });
   };
 
   return (

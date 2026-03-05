@@ -3,6 +3,7 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useMetaTags } from "../hooks/useMetaTags";
 import { useSubmitInquiry } from "../hooks/useQueries";
+import { generate10DigitId, saveBooking } from "../utils/bookingStorage";
 
 // Play a soft confirmation chime using Web Audio API
 function playConfirmSound() {
@@ -76,9 +77,11 @@ export default function BookingPage() {
       // Non-blocking — continue even if email fails
     }
 
-    // Save to backend (non-blocking)
+    // Save to backend and generate booking ID
+    let bookingId = generate10DigitId();
+    let internalId = "";
     try {
-      await submitInquiry.mutateAsync({
+      internalId = await submitInquiry.mutateAsync({
         name: (data.get("name") as string) || "",
         phone: (data.get("phone") as string) || "",
         email: (data.get("email") as string) || "",
@@ -90,11 +93,31 @@ export default function BookingPage() {
       setBackendStatus("saved");
     } catch {
       setBackendStatus("error");
+      // Still generate a local ID even if backend fails
+      bookingId = generate10DigitId();
     }
 
-    // Play sound and redirect to thank you page
+    // Save booking to localStorage history
+    saveBooking({
+      bookingId,
+      internalId: internalId || "",
+      name: (data.get("name") as string) || "",
+      phone: (data.get("phone") as string) || "",
+      email: (data.get("email") as string) || "",
+      serviceType: (data.get("service") as string) || "",
+      address: (data.get("address") as string) || "",
+      description: (data.get("problem") as string) || "",
+      preferredTime: (data.get("time") as string) || "",
+      submittedAt: new Date().toISOString(),
+      status: "Pending",
+    });
+
+    // Play sound and redirect to thank you page with booking ID
     playConfirmSound();
-    navigate({ to: "/thankyou" });
+    navigate({
+      to: "/thankyou",
+      search: { bookingId, internalId: internalId || "" },
+    });
   };
 
   return (
